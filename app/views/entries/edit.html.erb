@@ -1,0 +1,32 @@
+<h1>Editing entry</h1>
+
+<% form_for(@entry) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :position %><br />
+    <%= f.text_field :position %>
+  </p>
+  <p>
+    <%= f.label :content %><br />
+    <%= f.text_area :content %>
+  </p>
+  <p>
+    <%= f.label :enterer %><br />
+    <%= f.text_field :enterer %>
+  </p>
+  <p>
+    <%= f.label :enterer_url %><br />
+    <%= f.text_field :enterer_url %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @entry %> |
+<%= link_to 'Back', entries_path %>
