@@ -5,13 +5,17 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>Entries: <%= controller.action_name %></title>
-  <%= stylesheet_link_tag 'scaffold' %>
+  <%= stylesheet_link_tag 'stylish' %>
 </head>
 <body>
 
-<p style="color: green"><%= flash[:notice] %></p>
+<div id="wrapper"><div id="column">
 
-<%= yield  %>
+  <p style="color: green"><%= flash[:notice] %></p>
+
+  <%= yield  %>
+
+</div></div>
 
 </body>
 </html>

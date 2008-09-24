@@ -12,9 +12,13 @@
 </head>
 <body>
 
-<p style="color: green"><%= flash[:notice] %></p>
+<div id="wrapper"><div id="column">
 
-<%= yield  %>
+  <p style="color: green"><%= flash[:notice] %></p>
+
+  <%= yield  %>
+
+</div></div>
 
 </body>
 </html>

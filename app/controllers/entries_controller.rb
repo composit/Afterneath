@@ -1,4 +1,7 @@
 class EntriesController < ApplicationController
+
+  layout "aftern"
+
   # GET /entries
   # GET /entries.xml
   def index
