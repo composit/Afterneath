@@ -1,28 +1,51 @@
-<p>
-  <b>Name:</b>
-  <%=h @entry.name %>
-</p>
+<div id="entry">
+  <h1><%=h @entry.name %></h1>
+  <% if flash[:pending_approval] %>
+    <div id="approver">
+      <h1>You need to approve this entry</h1>
+      <% form_for @entry do |f| %>
+        <%= f.hidden_field "approved", :value => "1" %>
+        <%= f.submit "approve entry" %>
+      <% end %>
+      <%= button_to "edit entry", edit_entry_path( @entry ), :method => :get %>
+      <%= link_to "return without saving", entries_path %>
+    </div>
+  <% end %>
+  <div>
+    <% if @entry.photos.length > 0 %>
+      <%= render :partial => "slideshow", :object => @entry %>
+    <% elsif !@entry.embed_url.blank? %>
+      <%= @entry.content_html %>
+    <% end %>
+  </div>
+  <div id="content">
+    <%=h @entry.content %>
+    <div id="info">
+      -
+      <% if @entry.enterer_url %>
+        <%= link_to @entry.enterer, @entry.enterer_url %>
+      <% else %>
+        <%=h @entry.enterer %>
+      <% end %>
+      on <%= @entry.updated_at.strftime("%m/%d/%Y") %>
+    </div>
+  </div>
+  <div id="disqus_thread"></div><script type="text/javascript" src="http://disqus.com/forums/afterneath/embed.js"></script><noscript><a href="http://afterneath.disqus.com/?url=ref">View the discussion thread.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 
-<p>
-  <b>Position:</b>
-  <%=h @entry.position %>
-</p>
+  <%= link_to 'Back', entries_path %>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+(function() {
+  var links = document.getElementsByTagName('a');
+  var query = '?';
+  for(var i = 0; i < links.length; i++) {
+    if(links[i].href.indexOf('#disqus_thread') >= 0) {
+      query += 'url' + i + '=' + encodeURIComponent(links[i].href) + '&';
+    }
+  }
+  document.write('<script type="text/javascript" src="http://disqus.com/forums/afterneath/get_num_replies.js' + query + '"></' + 'script>');
+})();
+//]]>
+</script>
 
-<p>
-  <b>Content:</b>
-  <%=h @entry.content %>
-</p>
-
-<p>
-  <b>Enterer:</b>
-  <%=h @entry.enterer %>
-</p>
-
-<p>
-  <b>Enterer url:</b>
-  <%=h @entry.enterer_url %>
-</p>
-
-
-<%= link_to 'Edit', edit_entry_path(@entry) %> |
-<%= link_to 'Back', entries_path %>

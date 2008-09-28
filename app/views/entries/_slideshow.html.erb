@@ -1,0 +1,9 @@
+<script type='text/javascript'>
+// <[CDATA[
+  var viewer<%=h slideshow.id %> = new PhotoViewer();
+  <% for photo in slideshow.photos %>
+    viewer<%=h slideshow.id %>.add('<%=h photo.public_filename %>');
+  <% end %>
+// ]]>
+</script>
+<%= link_to_function image_tag( slideshow.face_slide.public_filename, :id => "face_slide" ), "javascript:void(viewer" + slideshow.id.to_s + ".show(0))" %>

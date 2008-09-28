@@ -1,4 +1,5 @@
 class Photo < ActiveRecord::Base
+  named_scope :alphabetical, :order => "filename"
 
   belongs_to :entry
 

@@ -5,10 +5,10 @@ class EntriesController < ApplicationController
   # GET /entries
   # GET /entries.xml
   def index
-    @entries = Entry.find(:all)
+    @entries = Entry.approved
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { render :layout => "face" } # index.html.erb
       format.xml  { render :xml => @entries }
     end
   end
@@ -38,6 +38,9 @@ class EntriesController < ApplicationController
   # GET /entries/1/edit
   def edit
     @entry = Entry.find(params[:id])
+    @entry.photos.each do |photo| # start from scratch
+      photo.destroy
+    end
   end
 
   # POST /entries
@@ -65,7 +68,16 @@ class EntriesController < ApplicationController
     respond_to do |format|
       if @entry.update_attributes(params[:entry])
         flash[:notice] = 'Entry was successfully updated.'
-        format.html { redirect_to(@entry) }
+        format.html { 
+          if @entry.approval_status == "uploading"
+            redirect_to new_photo_path( :entry_id => @entry.id )
+          elsif @entry.approval_status == "pending"
+            flash[:pending_approval] = true
+            redirect_to @entry
+          else
+            redirect_to @entry
+          end
+        }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

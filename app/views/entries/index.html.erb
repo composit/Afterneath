@@ -1,28 +1,23 @@
-<h1>Listing entries</h1>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Position</th>
-    <th>Content</th>
-    <th>Enterer</th>
-    <th>Enterer url</th>
-  </tr>
-
 <% for entry in @entries %>
-  <tr>
-    <td><%=h entry.name %></td>
-    <td><%=h entry.position %></td>
-    <td><%=h entry.content %></td>
-    <td><%=h entry.enterer %></td>
-    <td><%=h entry.enterer_url %></td>
-    <td><%= link_to 'Show', entry %></td>
-    <td><%= link_to 'Edit', edit_entry_path(entry) %></td>
-    <td><%= link_to 'Destroy', entry, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+  <div class="entry_box">
+    <h2><%=h entry.name %></h2>
+    <div class="face">
+      <%= link_to image_tag( entry.small_face_file ), entry if entry.small_face_file %>
+    </div>
+    <div class="content">
+      <%=h entry.content %>
+      <div class="info">
+        -
+        <% unless entry.enterer_url.blank? %>
+          <%= link_to entry.enterer, entry.enterer_url %>
+        <% else %>
+          <%=h entry.enterer %>
+        <% end %>
+        on <%= entry.updated_at.strftime("%m/%d/%Y") %>
+      </div>
+    </div>
+  </div>
 <% end %>
-</table>
-
-<br />
-
-<%= link_to 'New entry', new_entry_path %>
+<div class='entry_box'>
+  <h1><%= link_to 'ADD A NEW ENTRY', new_entry_path %></h1>
+</div>

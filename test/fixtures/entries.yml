@@ -1,15 +1,28 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  name: MyString
-  position: 1
-  content: MyText
-  enterer: MyString
-  enterer_url: MyString
+  name: Test Entry
+  position:
+  content: Here is the content
+  enterer: Mr. Person
+  enterer_url: www.google.com
+  approved: true
+  embed_url: http://www.flickr.com/photos/composit/2525564558/
 
 two:
-  name: MyString
-  position: 1
-  content: MyText
-  enterer: MyString
-  enterer_url: MyString
+  name: Another Entry
+  position:
+  content: Some content
+  enterer: Ms. Other
+  enterer_url:
+  approved: true
+  embed_url: http://vimeo.com/1322257
+
+three:
+  name: Hey, another!
+  position:
+  content: Some content
+  enterer: Mr. Goodness
+  enterer_url: 
+  approved: true
+  embed_url: http://www.youtube.com/watch?v=hbtvioV6jog

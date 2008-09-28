@@ -4,21 +4,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title>Photos: <%= controller.action_name %></title>
-  <%= javascript_include_tag 'swfupload' %>
-  <%= javascript_include_tag 'handlers' %>
+  <title>Entries: <%= controller.action_name %></title>
   <%= stylesheet_link_tag 'stylish' %>
-  <%= stylesheet_link_tag 'swfupload' %>
+  <%= javascript_include_tag "http://slideshow.triptracker.net/slide.js" %>
 </head>
 <body>
 
-<div id="wrapper"><div id="column">
+<p style="color: green"><%= flash[:notice] %></p>
 
-  <p style="color: green"><%= flash[:notice] %></p>
-
-  <%= yield  %>
-
-</div></div>
+<%= yield  %>
 
 </body>
 </html>

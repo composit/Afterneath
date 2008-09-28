@@ -29,7 +29,9 @@
   };
 </script>
 
-<div style="margin: 0px 10px;">
+<h1>Content Adder</h1>
+<div class="content_select">
+  If you would like to add a slideshow of images, click "select images" and select the images to upload - you can select several at a time.  The image with the first name alphabetically will be displayed as the link to the slideshow.  Please wait until all uploaded image thumbnails appear below before continuing.
   <div>
     <form>
       <button id="btnBrowse" type="button" style="padding: 5px;" onclick="swfu.selectFiles(); this.blur();"><img src="/images/page_white_add.png" style="padding-right: 3px; vertical-align: bottom;">Select Images <span style="font-size: 7pt;">(2 MB Max)</span></button>
@@ -37,4 +39,23 @@
   </div>
   <div id="divFileProgressContainer" style="height: 75px;"></div>
   <div id="thumbnails"></div>
+  <% form_for(@entry) do |f| %>
+    <%= f.hidden_field "approval_status", :value => "pending" %>
+    <%= f.submit "preview entry" %>
+  <% end %>
+</div>
+OR
+<div class="content_select">
+  If you would like to add a single item hosted on another site, enter the URL (address) of the page that hosts that item.  Supported sites include: Flickr, YouTube and Vimeo.  (Coming soon: Viddler, Qik, Pownce, Revision3 and Hulu)
+  <% form_for(@entry) do |f| %>
+    <%= f.error_messages %>
+    <p>
+      URL of item<br />
+      <%= f.text_field :embed_url %>
+    </p>
+    <p>
+      <%= f.hidden_field "approval_status", :value => "pending" %>
+      <%= f.submit "preview entry" %>
+    </p>
+  <% end %>
 </div>

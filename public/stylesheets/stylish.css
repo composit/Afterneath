@@ -67,6 +67,10 @@ a:visited {
   color: #8F6F6F;
 }
 
+.clear {
+  clear: both;
+}
+
 div#wrapper {
   position: relative;
 }
@@ -80,7 +84,7 @@ div#column {
   -moz-opacity:.8;
   opacity:.8;
   color: #fff;
-  padding: 30px;
+  padding: 0 30px;
 }
 
 p {
@@ -103,4 +107,68 @@ h2 {
 div#footer {
   margin: 20px 0;
 }
+
+div#entry {
+  text-align: center;
+  position: relative;
+  padding: 50px;
+  }
+
+  div#entry div#content {
+    width: 500px;
+    text-align: left;
+    margin: 20px 0;
+    }
+
+    div#entry div#content div#info {
+      text-align: right;
+      font-size: .8em;
+      color: #bfb;
+    }
+
+div.content_select {
+  border: 1px solid #fff;
+  padding: 10px;
+  margin: 20px 0;
+}
+
+div#approver {
+  border: 1px solid #fff;
+  padding: 10px;
+}
+
+img#face_slide {
+  width: 500px;
+}
+
+div.entry_box {
+  width: 300px;
+  margin: 20px;
+  padding: 10px 25px 5px 25px;
+  background-color: #000;
+  filter:alpha(opacity=80);
+  -moz-opacity:.8;
+  opacity:.8;
+  color: #fff;
+  float: left;
+  }
+
+  div.entry_box div.face {
+    }
+
+    div.entry_box div.face a img {
+      width: 300px;
+    }
+
+  div.entry_box div.content {
+    width: 300px;
+    text-align: left;
+    margin: 20px 0;
+    }
+
+    div.entry_box div.content div.info {
+      text-align: right;
+      font-size: .8em;
+      color: #bfb;
+    }
 
