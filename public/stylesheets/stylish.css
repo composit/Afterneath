@@ -78,7 +78,7 @@ div#wrapper {
 div#column {
   width: 600px;
   margin-left: auto;
-  margin-right:auto;
+  margin-right: auto;
   background-color: #000;
   filter:alpha(opacity=80);
   -moz-opacity:.8;
@@ -111,7 +111,7 @@ div#footer {
 div#entry {
   text-align: center;
   position: relative;
-  padding: 50px;
+  padding: 0 50px;
   }
 
   div#entry div#content {

@@ -1,3 +1,4 @@
+<%= link_to 'back', entries_path %>
 <div id="entry">
   <h1><%=h @entry.name %></h1>
   <% if flash[:pending_approval] %>
@@ -22,7 +23,7 @@
     <%=h @entry.content %>
     <div id="info">
       -
-      <% if @entry.enterer_url %>
+      <% unless @entry.enterer_url.blank? %>
         <%= link_to @entry.enterer, @entry.enterer_url %>
       <% else %>
         <%=h @entry.enterer %>
@@ -31,8 +32,6 @@
     </div>
   </div>
   <div id="disqus_thread"></div><script type="text/javascript" src="http://disqus.com/forums/afterneath/embed.js"></script><noscript><a href="http://afterneath.disqus.com/?url=ref">View the discussion thread.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
-
-  <%= link_to 'Back', entries_path %>
 </div>
 <script type="text/javascript">
 //<![CDATA[
