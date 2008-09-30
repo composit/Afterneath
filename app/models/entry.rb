@@ -73,4 +73,15 @@ class Entry < ActiveRecord::Base
     end
     face
   end
+
+  def disqus_thread_id
+    thread_request_url = "http://disqus.com/api/get_thread_by_url/?"
+    thread_response = ActiveSupport::JSON.decode(Net::HTTP.get(URI.parse(thread_request_url)))
+  end
+
+  def self.disqus_forum_key
+    request_url = "http://disqus.com/api/get_forum_api_key/?user_api_key=Q$fkKw1H@XK3#e7DXbKc936z4k7dZf%Iu%j_5V@P!9MA#S_hv@pFax&O3F0PoNin"
+    response = ActiveSupport::JSON.decode(Net::HTTP.get(URI.parse(request_url)))
+    response["message"]
+  end
 end
