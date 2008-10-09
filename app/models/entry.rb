@@ -1,5 +1,5 @@
 class Entry < ActiveRecord::Base
-  named_scope :approved, :conditions => "approved = 1", :limit => 20
+  named_scope :approved, :conditions => "approved = 1", :order => "updated_at DESC", :limit => 20
 
   has_many :photos
 
