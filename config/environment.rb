@@ -67,3 +67,7 @@ Rails::Initializer.run do |config|
 end
 
 require 'validates_uri_existence_of'
+
+DISQUS_USER_API_KEY = "Q$fkKw1H@XK3#e7DXbKc936z4k7dZf%Iu%j_5V@P!9MA#S_hv@pFax&O3F0PoNin"
+DISQUS_FORUM_ID = "44125"
+DISQUS_FORUM_API_KEY = "wRKgy7mMan9stadEfKEmY9DnOR5mssIXqAhhX4vjMjyPZUWyk9PPkEkK17caZHx2"

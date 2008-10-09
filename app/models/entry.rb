@@ -75,13 +75,29 @@ class Entry < ActiveRecord::Base
   end
 
   def disqus_thread_id
-    thread_request_url = "http://disqus.com/api/get_thread_by_url/?"
-    thread_response = ActiveSupport::JSON.decode(Net::HTTP.get(URI.parse(thread_request_url)))
+    request_url = "http://disqus.com/api/get_thread_by_url/?forum_api_key=" + CGI.escape(DISQUS_FORUM_API_KEY) + "&url=" + CGI.escape("http://www.afterneath.com/entries/" + id.to_s)
+    response = ActiveSupport::JSON.decode(Net::HTTP.get(URI.parse(request_url)))
+    if response["message"]
+      response["message"]["id"]
+    else
+      0
+    end
+  end
+
+  def self.disqus_forum_list
+    request_url = "http://disqus.com/api/get_forum_list/?user_api_key=" + CGI.escape(DISQUS_USER_API_KEY)
+    response = ActiveSupport::JSON.decode(Net::HTTP.get(URI.parse(request_url)))
   end
 
   def self.disqus_forum_key
-    request_url = "http://disqus.com/api/get_forum_api_key/?user_api_key=Q$fkKw1H@XK3#e7DXbKc936z4k7dZf%Iu%j_5V@P!9MA#S_hv@pFax&O3F0PoNin"
+    request_url = "http://disqus.com/api/get_forum_api_key/?user_api_key=" + CGI.escape(DISQUS_USER_API_KEY)+ "&forum_id=" + DISQUS_FORUM_ID
     response = ActiveSupport::JSON.decode(Net::HTTP.get(URI.parse(request_url)))
     response["message"]
+  end
+
+  def number_of_comments
+    request_url = "http://disqus.com/api/get_num_posts/?forum_api_key=" + CGI.escape(DISQUS_FORUM_API_KEY) + "&thread_ids=" + disqus_thread_id.to_s
+    response = ActiveSupport::JSON.decode(Net::HTTP.get(URI.parse(request_url)))
+    response["message"][disqus_thread_id][0]
   end
 end

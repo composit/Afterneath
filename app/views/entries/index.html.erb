@@ -1,4 +1,3 @@
-<%= Entry.disqus_forum_key %>
 <% for entry in @entries %>
   <div class="entry_box">
     <h2><%=h entry.name %></h2>
@@ -16,6 +15,7 @@
         <% end %>
         on <%= entry.updated_at.strftime("%m/%d/%Y") %>
       </div>
+      <div class="comment_link"><%= link_to entry.number_of_comments.to_s + ( entry.number_of_comments == 1 ? " comment" : " comments" ), entry %></div>
     </div>
   </div>
 <% end %>
