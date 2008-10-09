@@ -1,7 +1,7 @@
 <script type='text/javascript'>
 // <[CDATA[
   var viewer<%=h slideshow.id %> = new PhotoViewer();
-  <% for photo in slideshow.photos %>
+  <% for photo in slideshow.photos.alphabetical %>
     viewer<%=h slideshow.id %>.add('<%=h photo.public_filename %>');
   <% end %>
 // ]]>
