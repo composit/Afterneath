@@ -166,3 +166,6 @@ div.entry_box {
       color: #bfb;
     }
 
+    div.entry_box div.content div.comment_link {
+      text-align: center;
+    }
