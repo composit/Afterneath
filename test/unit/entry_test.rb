@@ -47,6 +47,6 @@ class EntryTest < ActiveSupport::TestCase
   def test_should_return_correct_thumbnail
     assert_equal entries(:one).thumbnail_image, "http://farm3.static.flickr.com/2121/2525564558_31f81c8fcf.jpg"
     # assert_equal entries(:two).thumbnail_image, "http://images.vimeo.com/95/97/74/95977495/95977495_160xXXXXXX.jpg"
-    assert_equal entries(:three).thumbnail_image, "/images/youtube.jpg"
+    assert_equal entries(:three).thumbnail_image, "youtube.jpg"
   end
 end

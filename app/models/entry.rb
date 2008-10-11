@@ -46,19 +46,6 @@ class Entry < ActiveRecord::Base
     image
   end
 
-  def embed_request_url
-    if embed_url.include? "youtube"
-      endpoint_url = "http://oohembed.com/oohembed/"
-    elsif embed_url.include? "flickr"
-      endpoint_url = "http://www.flickr.com/services/oembed"
-    elsif embed_url.include? "vimeo"
-      endpoint_url = "http://www.vimeo.com/api/oembed.json"
-    end
-    endpoint_url += "?url=" + embed_url
-    endpoint_url += "&format=json" if endpoint_url.include? "flickr"
-    endpoint_url
-  end
-
   def face_slide
     photos.alphabetical.first
   end
@@ -74,30 +61,51 @@ class Entry < ActiveRecord::Base
     face
   end
 
-  def disqus_thread_id
-    request_url = "http://disqus.com/api/get_thread_by_url/?forum_api_key=" + CGI.escape(DISQUS_FORUM_API_KEY) + "&url=" + CGI.escape("http://www.afterneath.com/entries/" + id.to_s)
-    response = ActiveSupport::JSON.decode(Net::HTTP.get(URI.parse(request_url)))
-    if response["message"]
-      response["message"]["id"]
-    else
-      0
-    end
-  end
-
-  def self.disqus_forum_list
-    request_url = "http://disqus.com/api/get_forum_list/?user_api_key=" + CGI.escape(DISQUS_USER_API_KEY)
-    response = ActiveSupport::JSON.decode(Net::HTTP.get(URI.parse(request_url)))
-  end
-
-  def self.disqus_forum_key
-    request_url = "http://disqus.com/api/get_forum_api_key/?user_api_key=" + CGI.escape(DISQUS_USER_API_KEY)+ "&forum_id=" + DISQUS_FORUM_ID
-    response = ActiveSupport::JSON.decode(Net::HTTP.get(URI.parse(request_url)))
-    response["message"]
-  end
-
   def number_of_comments
     request_url = "http://disqus.com/api/get_num_posts/?forum_api_key=" + CGI.escape(DISQUS_FORUM_API_KEY) + "&thread_ids=" + disqus_thread_id.to_s
     response = ActiveSupport::JSON.decode(Net::HTTP.get(URI.parse(request_url)))
     response["message"][disqus_thread_id][0]
   end
+
+  protected
+    def embed_request_url
+      if embed_url.include? "youtube"
+        endpoint_url = "http://oohembed.com/oohembed/"
+      elsif embed_url.include? "flickr"
+        endpoint_url = "http://www.flickr.com/services/oembed"
+      elsif embed_url.include? "vimeo"
+        endpoint_url = "http://www.vimeo.com/api/oembed.json"
+      end
+      endpoint_url += "?url=" + embed_url
+      endpoint_url += "&format=json" if endpoint_url.include? "flickr"
+      endpoint_url
+    end
+
+    def disqus_thread_id
+      request_url = "http://disqus.com/api/get_thread_by_url/?forum_api_key=" + CGI.escape(DISQUS_FORUM_API_KEY) + "&url=" + CGI.escape("http://www.afterneath.com/entries/" + id.to_s)
+      response = ActiveSupport::JSON.decode(Net::HTTP.get(URI.parse(request_url)))
+      if response["message"]
+        thread_id = response["message"]["id"]
+      else
+        alternate_request_url = "http://disqus.com/api/get_thread_by_url/?forum_api_key=" + CGI.escape(DISQUS_FORUM_API_KEY) + "&url=" + CGI.escape("http://www.afterneath.com/entries/" + id.to_s)
+        alternate_response = ActiveSupport::JSON.decode(Net::HTTP.get(URI.parse(alternate_request_url)))
+        if alternate_response["message"]
+          thread_id = alternate_response["message"]["id"]
+        else
+          thread_id = 0
+        end
+      end
+      thread_id
+    end
+
+    def self.disqus_forum_list
+      request_url = "http://disqus.com/api/get_forum_list/?user_api_key=" + CGI.escape(DISQUS_USER_API_KEY)
+      response = ActiveSupport::JSON.decode(Net::HTTP.get(URI.parse(request_url)))
+    end
+
+    def self.disqus_forum_key
+      request_url = "http://disqus.com/api/get_forum_api_key/?user_api_key=" + CGI.escape(DISQUS_USER_API_KEY)+ "&forum_id=" + DISQUS_FORUM_ID
+      response = ActiveSupport::JSON.decode(Net::HTTP.get(URI.parse(request_url)))
+      response["message"]
+    end
 end
