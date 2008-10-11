@@ -87,7 +87,7 @@ class Entry < ActiveRecord::Base
       if response["message"]
         thread_id = response["message"]["id"]
       else
-        alternate_request_url = "http://disqus.com/api/get_thread_by_url/?forum_api_key=" + CGI.escape(DISQUS_FORUM_API_KEY) + "&url=" + CGI.escape("http://www.afterneath.com/entries/" + id.to_s)
+        alternate_request_url = "http://disqus.com/api/get_thread_by_url/?forum_api_key=" + CGI.escape(DISQUS_FORUM_API_KEY) + "&url=" + CGI.escape("http://afterneath.com/entries/" + id.to_s)
         alternate_response = ActiveSupport::JSON.decode(Net::HTTP.get(URI.parse(alternate_request_url)))
         if alternate_response["message"]
           thread_id = alternate_response["message"]["id"]
