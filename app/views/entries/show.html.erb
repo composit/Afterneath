@@ -17,6 +17,7 @@
       <%= render :partial => "slideshow", :object => @entry %>
     <% elsif !@entry.embed_url.blank? %>
       <%= @entry.content_html %>
+      <%= @entry.youtube_video_id %>
     <% end %>
   </div>
   <div id="content">
