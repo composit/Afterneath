@@ -20,7 +20,7 @@
     <% end %>
   </div>
   <div id="content">
-    <%=h @entry.content %>
+    <%=h @entry.content %><%= "<span class='info'> (click image for slideshow)</span>" if @entry.photos.length > 0 %>
     <div id="info">
       -
       <% unless @entry.enterer_url.blank? %>

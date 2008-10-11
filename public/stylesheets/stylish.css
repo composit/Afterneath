@@ -123,6 +123,11 @@ div#entry {
       color: #bfb;
     }
 
+    div#entry div#content span.info {
+      font-size: .8em;
+      color: #bfb;
+    }
+
 div.content_select {
   border: 1px solid #fff;
   padding: 10px;
