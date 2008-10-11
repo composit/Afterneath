@@ -30,7 +30,7 @@ class Entry < ActiveRecord::Base
   def thumbnail_image
     if !embed_url.blank?
       if embed_url.include? "youtube"
-        image = "youtube.jpg"
+        image = "http://img.youtube.com/vi/" + self.youtube_video_id + "/2.jpg"
       else
         begin
           embed_response = ActiveSupport::JSON.decode(Net::HTTP.get(URI.parse(embed_request_url)))
@@ -107,5 +107,17 @@ class Entry < ActiveRecord::Base
       request_url = "http://disqus.com/api/get_forum_api_key/?user_api_key=" + CGI.escape(DISQUS_USER_API_KEY)+ "&forum_id=" + DISQUS_FORUM_ID
       response = ActiveSupport::JSON.decode(Net::HTTP.get(URI.parse(request_url)))
       response["message"]
+    end
+
+    def youtube_video_id
+      if embed_url.include?("youtube")
+        start_point = embed_url.index("v=") + 2
+        if embed_url.include?("&")
+          end_point = embed_url.index("&")
+        else
+          end_point = embed_url.length
+        end
+      end
+      video_id = embed_url[start_point...end_point]
     end
 end
