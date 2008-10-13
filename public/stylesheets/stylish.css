@@ -153,10 +153,11 @@ div.entry_box {
   }
 
   div.entry_box div.face {
+    text-align: center;
     }
 
     div.entry_box div.face a img {
-      width: 300px;
+      /*width: 300px; */
     }
 
   div.entry_box div.content {
